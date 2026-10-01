@@ -4,11 +4,12 @@ using MinimalApiAuthTest;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication()
     .AddScheme<MarqetaAuthenticationOptions, BasicAuthHandler>(
-        "Marqeta",
+        MarqetaAuthenticationOptions.DefaultScheme,
         options => { }
         );
 
-builder.Services.AddAuthorizationBuilder().AddFallbackPolicy(
+builder.Services.AddAuthorizationBuilder()
+    .AddFallbackPolicy(
     "Fallback", policy =>
     {
         policy.RequireAuthenticatedUser();
